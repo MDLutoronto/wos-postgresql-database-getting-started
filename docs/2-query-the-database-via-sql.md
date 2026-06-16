@@ -1,58 +1,11 @@
 ---
-title: "Getting Started with the Web of Science PostgreSQL Database"
-layout: "home"
-description: "This tutorial will help you get up and running querying the Web of Science PostgreSQL database. It will cover accessing the high performance computing environment, querying the database via SQL statements and from within a python script, and downloading the results of the query. You will need a Compute Canada account with the proper credentials to access this database. If you haven’t done so already, you should first follow the instructions to get your account set up. Note: This tutorial is intended for Windows users. If you are using a Mac, check out this tutorial instead."
-staff:
-    - name: Kelly Schultz
-      link: https://library.utoronto.ca/staff/kelly-schultz
-maintainer:
- - name: Kara Handren
-   link: https://library.utoronto.ca/staff/kara-handren
-created_date: 2022-01-26
-permalink: "/"  #! Remove this if not the homepage
+title: Query the Database via SQL
+parent: Getting Started with the Web of Science PostgreSQL Database
+layout: default
+nav_order: 2
 ---
 
-# Getting Started with the Web of Science PostgreSQL Database
-
-This tutorial will help you get up and running querying the [Web of Science PostgreSQL database](https://mdl.library.utoronto.ca/web-science-postgresql-database). It will cover accessing the high performance computing environment, querying the database via SQL statements and from within a python script, and downloading the results of the query.
-
-You will need a Compute Canada account with the proper credentials to access this database. If you haven’t done so already, you should first follow the [instructions to get your account set up](https://mdl.library.utoronto.ca/technology/tutorials/how-access-web-science-postgresql-database).
-
-Note: This tutorial is intended for Windows users. If you are using a Mac, check out this [tutorial](https://mdl.library.utoronto.ca/getting-started-web-science-postgresql-database-MAC) instead.
-
-### Table of Contents
-
-[Access the High Performance Computing Environment](#access-the-high-performance-computing-environment)
-
-[Query the Database via SQL](#query-the-database-via-sql)
-
-[Download the Results](#download-the-results)
-
-[Query the Database via Python](#query-the-database-via-python)
-
-### Accessing the High Performance Computing Environment
-{: #access-the-high-performance-computing-environment}
-
-If working in high performance computing environment is new to you, we would recommend you attend [SciNet workshops](https://education.scinet.utoronto.ca/) to learn more, especially their Intro to SciNet & Triullium workshop (run periodically) or watch [a recording of a previous session](https://www.youtube.com/@scinethpcattheuniversityof8962).
-
-  
-But here are some steps to get your started:
-
-1. To access the environment from a Windows machine, you will need an SSH client. We would recommend [MobaXterm](https://mobaxterm.mobatek.net/), and we will be using it in our tutorial examples
-2. Once you have installed MobaXterm, start it up
-3. From the Session menu, select New Session
-4. Select SSH from the top left
-5. For the remote host, use this format <**computecanadausername**>@trillium.scinet.utoronto.ca, substituting in your Compute Canada account username. For example, [doej@trillium.scinet.utoronto.ca](mailto:doej@trillium.scinet.utoronto.ca)
-6. Click on the Advanced SSH settings tab below
-7. For SSH-browser type, select SCP (enhanced speed)
-8. Put a checkmark next to Use private key. Click on the blue page icon to browse to the private key you setup when creating your public key for your Compute Canada account
-9. Then click on OK to connect
-10. Enter in your Compute Canada account password
-11. You are now connected to the server
-12. To log out, type `exit` and press Enter. Then press Enter again to close the tab
-
 ### Query the Database via SQL
-{: #query-the-database-via-sql}
 
 If SQL is a new concept for you, we would first suggest you learn the basics through a tutorial, such as [this one from Tutorial Republic](https://www.tutorialrepublic.com/sql-tutorial/). You may also want to explore the [PostgreSQL documentation](https://www.postgresql.org/docs/14/index.html) to help you with your work.
 
@@ -102,7 +55,7 @@ If SQL is a new concept for you, we would first suggest you learn the basics thr
     AND publication.title ILIKE '%librar%' 
     AND publication.year > 2015; 
     ```
-    	(Note: This will result in publication titles being duplicated if there are multiple authors to list)
+        (Note: This will result in publication titles being duplicated if there are multiple authors to list)
     5. **Search by Title words and Year, but return Author and Source information as well:** 	
     You can join one table to more than one other table to pull in more information into your results. Let’s run the query from example d, but add the journal information as well. Type
     ```
@@ -183,7 +136,7 @@ If SQL is a new concept for you, we would first suggest you learn the basics thr
     INNER JOIN abstract ON publication.id=abstract.wos_id 
     WHERE publication.title ILIKE '%visualization%' 
     AND publication.title ILIKE '%librar%' 
-	AND publication.year > 2019; 
+    AND publication.year > 2019; 
     ```
     11. **Search for articles that cite a subset of articles:** 	
     The Web of Science dataset is very valuable to analyze citation networks. For example, we can use another bridging table called references to find all publication IDs that cited or are cited by other publication IDs. Let’s query the database to find all the articles that cite a (very small) subset of items. The subset is similar to example b above, find all articles that have the words “visualization”, and “library” OR “libraries” OR “librarian” in the title, but this time only published after 2019. These types of queries are intensive and can take a while to run, so this is a very simple and small example to get you started. Type
@@ -198,7 +151,7 @@ If SQL is a new concept for you, we would first suggest you learn the basics thr
     AND publication.title ILIKE '%librar%' 
     AND publication.year > 2019);
     ```
-    	(Note: This query WILL take a bit of time to run! )
+        (Note: This query WILL take a bit of time to run! )
     12. **Search for articles that are cited by a subset of articles:** 	
     We can also query this the opposite way to find articles cited by a subset of articles. Let’s query the database to find all the articles that are cited by a (very small) subset of items. The subset is the same as in example k, and the modifications to the query in example k are minimal. Type
     ```
@@ -227,100 +180,3 @@ If SQL is a new concept for you, we would first suggest you learn the basics thr
 Throughout the examples, we have been using plain wildcard pattern matching, but you may want to explore [more sophisticated ways to search text](https://www.postgresql.org/docs/14/textsearch.html) as well.
 
 A Note on Query Efficiency: Generally, Postgres is really smart at analyzing what you want to do and querying the database in the most efficient way, so often changing the query structure won't make any difference because Postgres really does the same thing under the hood. One thing that sometimes helps is to increase the number of workers, for example with this command `SET max_parallel_workers_per_gather = 16`, but not all operations in a query can be parallelized or parallelized well. Another thing that potentially helps for complex queries is to use temporary tables instead of table variables. For example, [rewriting example h](http://mdl.library.utoronto.ca/sites/default/public/mdldata/open/international/wos/rewritten_example_h.txt) to use temporary tables sped up the query from minutes to seconds.
-
-### Download the Results
-{: #download-the-results}
-
-1. From the Trillium prompt, type `ls` to list all the files in your personal directory. If you followed the steps above, you should see a csv file you just saved
-2. From the MobaXterm interface, you should see a sidebar to the left of your terminal window. Click on the orange globe icon on the far left to open the file explorer tab. This should now list all the files in your personal directory on the Trillium server
-3. Click on the refresh icon (looks like a green circle with a white circular arrow) at the top of that list to refresh the directory items. You should now see your new csv file
-4. Highlight your new csv file, and then select the download icon at the top (looks like an arrow pointing down)
-5. You should be prompted to select a directory on your local computer where you can save the file. Browse to your desired directory and then click on OK
-6. Now if you go to that directory, you should see your new csv file. Open it up and view your results
-
-### Query the Database via Python
-{: #query-the-database-via-python}
-
-If you would like to programmatically construct your SQL statements (and programmatically manipulate the results), you may prefer to use Python code to query the database.
-
-If Python is new for you, we would first suggest you learn the basics through a tutorial, such as [this one from W3Schools](https://www.w3schools.com/python/default.asp). You can also consult our recorded workshop [A Friendly Introduction to Python for Absolute Beginners: Part 1](http://play.library.utoronto.ca/watch/d17a5f60462dec00565b7809d2953757), as well as the [Setup Instructions](https://maps.library.utoronto.ca/workshops/PythonPart1/SetupInstructions.pdf) (includes how to get slides, workshop files, etc.) & [Solutions](https://maps.library.utoronto.ca/workshops/PythonPart1/WorkshopSolutions.zip) (packaged in a zip file) for this workshop.
-
-1. In your favourite Python editor, write your script and save your file as a .py file. For this example, we will call it **myfirstpythonscript.py**. Here is an example of a Python script that takes a list of author names and finds their publications ([download the script](https://mdl.library.utoronto.ca/sites/default/public/mdldata/open/international/wos/myfirstpythonscript.py)- note that you may have to right click to save the Python script instead of viewing the text in a browser tab). This script creates a temporary table of our authors, and then joins that table to the author table to find the authors’ publication IDs (this is more efficient than calling multiple SELECT statements in a loop, one for each author). Then this table is joined with the publication table to find the publication titles. You will see that this script uses the [psycopg2](https://www.psycopg.org/docs/index.html) package and provides information on how to connect to the database. You do not have to specify a username and password, as the system will automatically detect if you have permission. You can use this script and the SQL statement examples above, as guides to create your own Python code to query the database:
-
-    ```
-    # You need a couple of packages to query the database and write a CSV file
-    import psycopg2
-    import csv
-
-    # You will need this database name and host information to create a connection to the database
-    database_config = {
-        'dbname': 'wos',
-        'host': 'idb1'
-    }
-
-    # This is a list of names we are searching for. Feel free to edit the names 
-    # to find publications from researchers you are interested in
-    author_names = [
-        'Dearborn, Dylanne',
-        'Fortin, Marcel',
-        'Handren, Kara',
-        'Schultz, Michelle Kelly',
-        'Trimble, Leanne',
-    ]
-
-    # This section of code uses the psycopg2 package to connect to the database
-    con = psycopg2.connect(**database_config)
-    cur = con.cursor()
-
-    # This executes a SQL statement that creates a temporary table with our list of author names 
-    cur.execute('CREATE TEMPORARY TABLE _author (name TEXT)')
-    for name in author_names:
-        cur.execute('INSERT INTO _author VALUES (%s)', (name,))
-
-    # This SQL statement joins our list of names with the database author table to filter the results
-    # to only the authors we are looking for. This is a more efficient approach than looping through
-    # author names and running multiple SELECT statements
-    # Note: Using a backslash as the line is long - not part of the SQL statement
-    cur.execute("SELECT wos_id, full_name FROM author INNER JOIN _author ON author.full_name \
-    ILIKE '%'||_author.name||'%'")
-
-    # This next section of code goes line by line through the results and adds them to a dictionary
-    # data type in python, where the publication id for the author is the key and the name of the  
-    # author is the value. It also prints it out so you can see the data.
-    mylist = dict()
-    while result := cur.fetchone():
-        print(result)
-        mylist[result[0]] = result[1]
-
-    # This next section sets up a CSV that we will use to store the results of our final query
-    with open('myfirstpythonresults.csv', mode='w', encoding='UTF8', newline='') as csv_file:
-        myheader = ['title']
-        writer = csv.writer(csv_file)
-        writer.writerow(myheader)
-
-    # This section goes through each item in the dictionary that we created earlier. For each
-        # key (which is an author’s publication ID), it queries the database to find its title. Then 
-        # it writes that title in the CSV file. It also prints it out so you can see the data.
-        for x in mylist.keys():
-            cur.execute("SELECT title FROM publication WHERE publication.id=%s", (x,))
-            while finalresult := cur.fetchone():
-                print(finalresult)
-                writer.writerow(finalresult)
-
-    # Finally, all the connections to the database are closed
-    cur.close()
-    con.close()
-    ```
-2. Once your Python script is ready, connect to Trillium using MobaXterm [as described earlier](#access-the-high-performance-computing-environment)
-3. From the MobaXterm interface, you should see a sidebar to the left of your terminal window. Click on the orange globe icon on the far left to open the file explorer tab. This should now list all the files in your personal directory on the Trillium server
-4. Click on the upload icon at the top (looks like an arrow pointing up)
-5. You should be prompted to select the file you want to upload from your local computer. Select the file and then click on OK
-6. Next we need to set up the environment to run our Python script. Type `module load python/3.9.8`
-7. Next type `virtualenv --system-site-packages myenv`
-8. Next type `source myenv/bin/activate`
-9. Finally type `pip install psycopg2-binary`
-10. Once the package has installed, you are ready to run your Python script. Type `python myfirstpythonscript.py` or substitute in the name of your Python script if you called it something else.  
-(Important Note: If querying is only a small part of the overall task, and the majority of computing effort is going into postprocessing the query results, for example, using natural language processing or graph analysis, to be done in parallel, then there are different ways to run your script that involve [submitting it as a job](https://docs.scinet.utoronto.ca/index.php/Niagara_Quickstart#Submitting_jobs) to be run. Feel free to [contact us](https://mdl.library.utoronto.ca/about/contact-form) for help.)
-11. It may take a while to run, but when it is finished you will see the command prompt again, and now if you refresh your file directory in MobaXterm or type `ls`, you should see a new CSV file created from the Python script. Download the file ([as described earlier](#download-the-results)) and open up the file to see the results
-
-These are just a few examples to help you get started, but of course there is much more you can do. If you have any questions, feel free to [contact us](https://mdl.library.utoronto.ca/about/contact-form).
