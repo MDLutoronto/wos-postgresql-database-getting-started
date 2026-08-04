@@ -1,5 +1,5 @@
 ## Site settings
-title: "Getting Started with the Web of Science PostgreSQL Database"
+title: "Web of Science PostgreSQL Database"
 description: "Workshops and guides from the Map & Data Library, University of Toronto"
 url: "https://MDLutoronto.github.io/wos-postgresql-database-getting-started" # change the slug to the repo's name ('jtd-template' in this case)
 repository: "MDLutoronto/wos-postgresql-database-getting-started" # for github-metadata
