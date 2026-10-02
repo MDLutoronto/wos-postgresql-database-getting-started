@@ -38,6 +38,6 @@ For help with constructing your SQL queries:
 ## Help
 If working with object-relational databases, SQL, and/or high performance computing environments are new to you, check out the following tutorials to help you get started.
 
-If you have any question, feel free to [contact us](https://mdl.library.utoronto.ca/about/contact-form).
+If you have any question, feel free to [contact us](https://library.utoronto.ca/contact-us/data-maps).
 
 **Technique:** [Searching for maps and data](https://mdlutoronto.github.io/tutorials-search/?technique=Searching+for+maps+and+data), [Text and Data Mining](https://mdlutoronto.github.io/tutorials-search/?technique=Text+and+Data+Mining) \| **Tools:** [Web of Science](https://mdlutoronto.github.io/tutorials-search/?tool=Web+of+Science)
