@@ -15,14 +15,14 @@ has_children: true
 has_toc: false
 ---
 # Web of Science PostgreSQL Database
-The [Web of Science Raw Data (XML)](https://mdl.library.utoronto.ca/technology/text-data-mining-software/web-science-raw-data-xml) is a metadata extract of the Web of Science Database and includes over 12,500 journals from around the world in over 250 Science, Social Science and Humanities disciplines. Conference proceedings and book data are also included. Data are available from 1900 and currently include over 63 million article records and 1 billion cited references.
+The [Web of Science Raw Data (XML)](https://library.utoronto.ca/use/tool/web-science-wos-postgresql-database) is a metadata extract of the Web of Science Database and includes over 12,500 journals from around the world in over 250 Science, Social Science and Humanities disciplines. Conference proceedings and book data are also included. Data are available from 1900 and currently include over 63 million article records and 1 billion cited references.
 
 This XML has been converted into an object-relational database (updated periodically) and is available to UofT faculty, staff, and students for querying in a high performance computing environment offered by [SciNet](https://www.scinethpc.ca/). Currently the database contains data up to and including Dec. 31, 2024.
 
 This is an excellent dataset for use in text and data mining research, particularly focusing on bibliometrics and citation analysis. It can be programmatically queried via SQL statements directly or through python scripts, with no limits on query results.
 
 ## Restrictions
-The [Web of Science Raw Data (XML)](https://mdl.library.utoronto.ca/technology/text-data-mining-software/web-science-raw-data-xml) and this PostgreSQL database are intended for academic study, research, teaching and administrative use at the University of Toronto. The data is restricted to University of Toronto faculty, students, researchers and staff. It is strictly forbidden to use this dataset or derivatives for commercial or Non-University of Toronto specific use. Further distribution of this data or derivatives, is prohibited.
+The [Web of Science Raw Data (XML)](https://library.utoronto.ca/use/tool/web-science-wos-postgresql-database) and this PostgreSQL database are intended for academic study, research, teaching and administrative use at the University of Toronto. The data is restricted to University of Toronto faculty, students, researchers and staff. It is strictly forbidden to use this dataset or derivatives for commercial or Non-University of Toronto specific use. Further distribution of this data or derivatives, is prohibited.
 
 ## Access
 In order to access the database, you must first gain access to the high performance computing environment through a [multi-step process](https://mdlutoronto.github.io/postgresql-databases-access/) to create the appropriate account (may take a few days to create the account initially).
